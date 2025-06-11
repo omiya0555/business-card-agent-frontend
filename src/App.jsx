@@ -17,7 +17,12 @@ function App() {
       const res = await axios.post("http://localhost:8000/upload", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
-      setResponse(res.data)
+
+      if (res.data.error) {
+        setResponse(`エラー: ${res.data.error}`)
+      } else {
+        setResponse(res.data.result)
+      }
     } catch (err) {
       console.error(err)
       setResponse("エラーが発生しました")
